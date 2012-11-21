@@ -20,9 +20,27 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('hautelook_session_storage_chain');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+        ->info('defines the session chain')
+            ->children()
+                ->arrayNode('reader')
+                    ->info('defines all the readers of the chain (services, in order)')
+                    ->example('session.storage.pdo_slave')
+                    ->isRequired()
+                    ->requiresAtLeastOneElement()
+                    ->prototype('scalar')
+                    ->end()
+                ->end()
+                ->arrayNode('writer')
+                    ->info('defines all the writers of the chain (services, in order)')
+                    ->example('session.storage.pdo_master')
+                    ->isRequired()
+                    ->requiresAtLeastOneElement()
+                    ->prototype('scalar')
+                    ->end()
+                ->end()
+            ->end()
+        ->end();
 
         return $treeBuilder;
     }

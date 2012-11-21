@@ -22,6 +22,10 @@ class HautelookSessionStorageChainExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        if (!empty($config)) {
+            $container->setParameter($this->getAlias(), $config);
+        }
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
     }
