@@ -142,7 +142,7 @@ class SessionStorageHandlerChain implements \SessionHandlerInterface
             $result |= $storage->write($sessionId, $data);
         }
 
-        return $result;
+        return (boolean) $result;
     }
 
     /**
@@ -163,7 +163,7 @@ class SessionStorageHandlerChain implements \SessionHandlerInterface
             $result |= $storage->destroy($sessionId);
         }
 
-        return $result;
+        return (boolean) $result;
     }
 
     /**
@@ -184,6 +184,6 @@ class SessionStorageHandlerChain implements \SessionHandlerInterface
             $result |= $storage->gc($lifetime);
         }
 
-        return $result;
+        return (boolean) $result;
     }
 }
