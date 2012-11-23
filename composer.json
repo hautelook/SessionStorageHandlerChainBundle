@@ -1,0 +1,25 @@
+{
+    "name": "hautelook/session-storage-handler-chain",
+    "description": "This is a Symfony 2 bundle that allows you to read/write session data from multiple storage handlers in an efficient way",
+    "keywords": ["Symfony2", "Session", "Storage Handler", "Chain"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "homepage": "http://www.hautelooktech.com/",
+    "authors": [
+        {
+            "name": "Baldur Rensch",
+            "email": "brensch@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "symfony/http-kernel": ">=2.1.*",
+        "symfony/dependency-injection": ">=2.1.*"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-0": { "Hautelook\\SessionStorageHandlerChain": "" }
+    },
+    "target-dir": "Hautelook/SessionStorageHandlerChain",
+    "minimum-stability": "dev"
+}
