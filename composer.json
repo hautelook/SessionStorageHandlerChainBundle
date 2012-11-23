@@ -18,8 +18,8 @@
     },
     "require-dev": {},
     "autoload": {
-        "psr-0": { "Hautelook\\SessionStorageHandlerChain": "" }
+        "psr-0": { "Hautelook\\SessionStorageChainBundle": "" }
     },
-    "target-dir": "Hautelook/SessionStorageHandlerChain",
+    "target-dir": "Hautelook/SessionStorageChainBundle",
     "minimum-stability": "dev"
 }
