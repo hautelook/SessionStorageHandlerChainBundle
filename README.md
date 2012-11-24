@@ -103,4 +103,8 @@ hautelook_session_storage_chain:
     writer:
         - session.storage.memcache
         - session.storage.pdo_master
+
+framework:
+    session:
+        handler_id: hautelook.session_storage_chain
 ```
