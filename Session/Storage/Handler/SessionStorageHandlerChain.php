@@ -6,7 +6,7 @@ use SessionHandlerInterface;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Hautelook\ApiBundle\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * @author Baldur Rensch <brensch@gmail.com>
