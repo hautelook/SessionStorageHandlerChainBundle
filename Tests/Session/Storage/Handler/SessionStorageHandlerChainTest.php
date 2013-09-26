@@ -12,7 +12,7 @@ use SessionHandlerInterface;
  */
 class SessionStorageHandlerChainTest extends \PHPUnit_Framework_TestCase
 {
-	private $sessionChain;
+    private $sessionChain;
 
     protected function setUp()
     {
@@ -95,23 +95,23 @@ class SessionStorageHandlerChainTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-	public function testRead()
-	{
-		$this->assertEquals('dummySessionData', $this->sessionChain->read('abc'));
-	}
+    public function testRead()
+    {
+        $this->assertEquals('dummySessionData', $this->sessionChain->read('abc'));
+    }
 
-	public function testWrite()
-	{
-		$this->assertTrue($this->sessionChain->write('abc', 'dummySessionData'));
-	}
+    public function testWrite()
+    {
+        $this->assertTrue($this->sessionChain->write('abc', 'dummySessionData'));
+    }
 
-	public function testDestroy()
-	{
-		$this->assertTrue($this->sessionChain->destroy('abc'));
-	}
+    public function testDestroy()
+    {
+        $this->assertTrue($this->sessionChain->destroy('abc'));
+    }
 
-	public function testGc()
-	{
-		$this->assertTrue($this->sessionChain->gc(1000));
-	}
+    public function testGc()
+    {
+        $this->assertTrue($this->sessionChain->gc(1000));
+    }
 }
