@@ -109,3 +109,10 @@ framework:
     session:
         handler_id: hautelook.session_storage_chain
 ```
+
+## License
+
+The SessionStorageHandlerChainBundle is released under the MIT License. See the 
+bundled Resources/meta/LICENSE file for details.
+
+
