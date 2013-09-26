@@ -4,6 +4,7 @@ namespace Hautelook\SessionStorageChainBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -22,11 +23,26 @@ class HautelookSessionStorageChainExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        if (!empty($config)) {
-            $container->setParameter($this->getAlias(), $config);
-        }
-
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $readersReferences = $this->mapIdsToReferences($config['reader']);
+        $writersReferences = $this->mapIdsToReferences($config['writer']);
+
+        $container
+            ->getDefinition('hautelook.session_storage_chain')
+            ->replaceArgument(0, $readersReferences)
+            ->replaceArgument(1, $writersReferences)
+        ;
+    }
+
+    private function mapIdsToReferences($servicesIds)
+    {
+        return array_map(
+            function ($id) {
+                return new Reference($id);
+            },
+            $servicesIds
+        );
     }
 }
