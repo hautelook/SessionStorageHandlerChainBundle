@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('hautelook_session_storage_chain');
 
         $rootNode
-        ->info('defines the session chain')
+            ->info('defines the session chain')
             ->children()
                 ->arrayNode('reader')
                     ->info('defines all the readers of the chain (services, in order)')
@@ -40,7 +40,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end()
-        ->end();
+        ;
 
         return $treeBuilder;
     }
