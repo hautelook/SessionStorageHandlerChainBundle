@@ -16,62 +16,32 @@ class SessionStorageHandlerChain implements \SessionHandlerInterface
     private $readStorageChain;
     private $writeStorageChain;
 
-    private $container;
-
     /**
-     * Service Constructor
-     *
-     * @param  ContainerInterface       $container
+     * @param array $readers
+     * @param array $writers
      * @throws InvalidArgumentException if a service is not defined or is not a SessionHandlerInterface.
      */
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container           = $container;
-        $readStorageChain          = array();
-        $writeStorageChain         = array();
+    public function __construct(
+        array $readers,
+        array $writers
+    ) {
+        $this->readStorageChain = $readers;
+        $this->writeStorageChain = $writers;
 
-        $parameter = $this->container->getParameter('hautelook_session_storage_chain');
-
-        foreach ($parameter['reader'] as $serviceName) {
-            if (!$this->container->has($serviceName)) {
-                throw new InvalidArgumentException("Service '{$serviceName}' is not defined");
+        foreach (array_merge($this->readStorageChain, $this->writeStorageChain) as $storage) {
+            if (!$storage instanceof SessionHandlerInterface) {
+                throw new InvalidArgumentException(
+                    sprintf(
+                        '"%s" should implement "\SessionHandlerInterface"',
+                        is_object($storage) ? get_class($storage) : gettype($storage)
+                    )
+                );
             }
-
-            $service = $this->container->get($serviceName);
-
-            if (!($service instanceof SessionHandlerInterface)) {
-                throw new InvalidArgumentException("Service '{$serviceName}' does not implement 'SessionHandlerInterface'");
-            }
-
-            $this->readStorageChain []= $service;
-        }
-
-        foreach ($parameter['writer'] as $serviceName) {
-            if (!$this->container->has($serviceName)) {
-                throw new InvalidArgumentException("Service '{$serviceName}' is not defined");
-            }
-
-            $service = $this->container->get($serviceName);
-
-            if (!($service instanceof SessionHandlerInterface)) {
-                throw new InvalidArgumentException("Service '{$serviceName}' does not implement 'SessionHandlerInterface'");
-            }
-
-            $this->writeStorageChain []= $service;
         }
     }
 
     /**
-     * Open session.
-     *
-     * @see http://php.net/sessionhandlerinterface.open
-     *
-     * @param string $savePath    Save path.
-     * @param string $sessionName Session Name.
-     *
-     * @throws \RuntimeException If something goes wrong starting the session.
-     *
-     * @return boolean
+     * {@inheritdoc}
      */
     public function open($savePath, $sessionName)
     {
@@ -86,11 +56,7 @@ class SessionStorageHandlerChain implements \SessionHandlerInterface
     }
 
     /**
-     * Close session.
-     *
-     * @see http://php.net/sessionhandlerinterface.close
-     *
-     * @return boolean
+     * {@inheritdoc}
      */
     public function close()
     {
@@ -104,13 +70,7 @@ class SessionStorageHandlerChain implements \SessionHandlerInterface
     }
 
     /**
-     * Read session.
-     *
-     * @see http://php.net/sessionhandlerinterface.read
-     *
-     * @throws \RuntimeException On fatal error but not "record not found".
-     *
-     * @return string String as stored in persistent storage or empty string in all other cases.
+     * {@inheritdoc}
      */
     public function read($sessionId)
     {
@@ -125,14 +85,7 @@ class SessionStorageHandlerChain implements \SessionHandlerInterface
     }
 
     /**
-     * Commit session to storage.
-     *
-     * @see http://php.net/sessionhandlerinterface.write
-     *
-     * @param string $sessionId Session ID.
-     * @param string $data      Session serialized data to save.
-     *
-     * @return boolean
+     * {@inheritdoc}
      */
     public function write($sessionId, $data)
     {
@@ -146,15 +99,7 @@ class SessionStorageHandlerChain implements \SessionHandlerInterface
     }
 
     /**
-     * Destroys this session.
-     *
-     * @see http://php.net/sessionhandlerinterface.destroy
-     *
-     * @param string $sessionId Session ID.
-     *
-     * @throws \RuntimeException On fatal error.
-     *
-     * @return boolean
+     * {@inheritdoc}
      */
     public function destroy($sessionId)
     {
@@ -167,15 +112,7 @@ class SessionStorageHandlerChain implements \SessionHandlerInterface
     }
 
     /**
-     * Garbage collection for storage.
-     *
-     * @see http://php.net/sessionhandlerinterface.gc
-     *
-     * @param integer $lifetime Max lifetime in seconds to keep sessions stored.
-     *
-     * @throws \RuntimeException On fatal error.
-     *
-     * @return boolean
+     * {@inheritdoc}
      */
     public function gc($lifetime)
     {
