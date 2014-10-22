@@ -5,6 +5,7 @@ Symfony2 Bundle that provides a session storage chain handler.
 
 [![Build Status](https://secure.travis-ci.org/hautelook/SessionStorageHandlerChainBundle.png?branch=master)](https://travis-ci.org/hautelook/SessionStorageHandlerChainBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/hautelook/SessionStorageHandlerChainBundle/badges/quality-score.png?s=c071d83a0116a85a2173b27f187caa256248979e)](https://scrutinizer-ci.com/g/hautelook/SessionStorageHandlerChainBundle/)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/ce33ad07-08fe-4eab-a6dc-2e8603126ff9/mini.png)](https://insight.sensiolabs.com/projects/ce33ad07-08fe-4eab-a6dc-2e8603126ff9)
 
 ## Introduction
 

@@ -2,11 +2,8 @@
 
 namespace Hautelook\SessionStorageChainBundle\Session\Storage\Handler;
 
-use SessionHandlerInterface;
-
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use InvalidArgumentException;
+use SessionHandlerInterface;
 
 /**
  * @author Baldur Rensch <brensch@gmail.com>
